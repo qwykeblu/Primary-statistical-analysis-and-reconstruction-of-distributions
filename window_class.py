@@ -109,25 +109,27 @@ class Window(tk.Tk):
         # label_classes.pack(side=BOTTOM, padx=1,pady=20)
         # spin_box.pack(side=BOTTOM, padx=15, pady=20)
 
-        tree2 = ttk.Treeview(Frame_02)
-
-        tree2.grid(row = 0, column = 1, padx = 20, pady = 5)
-        verscrlbar = ttk.Scrollbar(Frame_02,
-                                   orient="vertical",
-                                   command=tree2.yview)
-        verscrlbar.grid(row=0, column=2, sticky=NS)
-
-        tree2.configure(yscrollcommand=verscrlbar.set)
-        tree2["columns"] = cols
-        for i in cols:
-            tree2.column(i, anchor="w", width=50)
-            tree2.heading(i, text=i, anchor='w')
-
-        for index, row in created_dataframe.iterrows():
-            tree2.insert("", 0, text=index + 1, values=list(row))
-
-        s1 = ttk.Style()
-        s1.configure('Treeview', rowheight=20, )
+        pt = Table(Frame_02, dataframe=created_dataframe.sort_values(by='Element'))
+        pt.show()
+        # tree2 = ttk.Treeview(Frame_02)
+        #
+        # tree2.grid(row = 0, column = 1, padx = 20, pady = 5)
+        # verscrlbar = ttk.Scrollbar(Frame_02,
+        #                            orient="vertical",
+        #                            command=tree2.yview)
+        # verscrlbar.grid(row=0, column=2, sticky=NS)
+        #
+        # tree2.configure(yscrollcommand=verscrlbar.set)
+        # tree2["columns"] = cols
+        # for i in cols:
+        #     tree2.column(i, anchor="w", width=50)
+        #     tree2.heading(i, text=i, anchor='w')
+        #
+        # for index, row in created_dataframe.iterrows():
+        #     tree2.insert("", 0, text=index + 1, values=list(row))
+        #
+        # s1 = ttk.Style()
+        # s1.configure('Treeview', rowheight=20, )
 
 
         # b = Button(Frame_02, text="Показати графік",
