@@ -3,7 +3,7 @@ from tkinter import ttk
 from main_functions import *
 import tkinter as tk
 from tkinter.font import BOLD, Font
-from pandastable import Table
+from pandastable import Table,config
 
 class Window(tk.Tk):
     def __init__(self):
@@ -39,7 +39,6 @@ class Window(tk.Tk):
         Frame_00 = Frame(variational_series, bg='Red', borderwidth=2, relief=GROOVE)
         Frame_00.pack(side=TOP, padx=10, pady=2.5)
 
-        # Positive
         Frame_title011 = Frame(Frame_00, bg="white", height = 10, width = 300, borderwidth = 2, relief=GROOVE)
         Frame_title011.grid(row = 0, column = 0, padx=5, pady=5)
         Label(Frame_title011, text="Варіаціний ряд").pack(padx=2, pady=2)
@@ -51,31 +50,31 @@ class Window(tk.Tk):
         res = file_choice(filename=get_file(self))
 
 
-
         created_dataframe = create_dataframe_variation_series(res)
+        pt = Table(Frame_01, dataframe=created_dataframe.sort_values(by='Element'))
+        pt.show()
 
-
-        cols = list(created_dataframe.columns)
-
-        tree1 = ttk.Treeview(Frame_01)
-
-        tree1.grid(row = 0, column = 0, padx = 20, pady = 5)
-        verscrlbar = ttk.Scrollbar(Frame_01,
-                                   orient="vertical",
-                                   command=tree1.yview)
-        verscrlbar.grid(row=0, column=1, sticky=NS)
-
-        tree1.configure(yscrollcommand=verscrlbar.set)
-        tree1["columns"] = cols
-        for i in cols:
-            tree1.column(i, anchor="w", width=50)
-            tree1.heading(i, text=i, anchor='w')
-
-        for index, row in created_dataframe.iterrows():
-            tree1.insert("", 0, text=index+1, values=list(row))
-
-        s = ttk.Style()
-        s.configure('Treeview', rowheight=20)  # repace 40 with whatever you need
+        # cols = list(created_dataframe.columns)
+        #
+        # tree1 = ttk.Treeview(Frame_01)
+        #
+        # tree1.grid(row = 0, column = 0, padx = 20, pady = 5)
+        # verscrlbar = ttk.Scrollbar(Frame_01,
+        #                            orient="vertical",
+        #                            command=tree1.yview)
+        # verscrlbar.grid(row=0, column=1, sticky=NS)
+        #
+        # tree1.configure(yscrollcommand=verscrlbar.set)
+        # tree1["columns"] = cols
+        # for i in cols:
+        #     tree1.column(i, anchor="w", width=50)
+        #     tree1.heading(i, text=i, anchor='w')
+        #
+        # for index, row in created_dataframe.iterrows():
+        #     tree1.insert("", 0, text=index+1, values=list(row))
+        #
+        # s = ttk.Style()
+        # s.configure('Treeview', rowheight=20)  # repace 40 with whatever you need
         # b = Button(Frame_01, text="Показати графік", command=lambda: graph_empericaldistribution(res, ed))
         # b.grid(row = 0, column = 0, padx = 80, pady = 5)
 
